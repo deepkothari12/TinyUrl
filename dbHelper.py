@@ -72,6 +72,14 @@ class dataBase:
         except Exception as e:
             print("Not Found")
 
+
+        # def aliasSearch(self , aliass):
+        #     try:
+        #         self.querys ="""
+        #                 SELECT long_url FROM tinyurl WHERE 
+        #             """
+        #     except:
+        #         pass
         
 
 

@@ -6,7 +6,7 @@ import string
 
 app = Flask(__name__)
 
-url_mapping = {}
+#url_mapping = {}
 ##Randome string and randomg number genrator Function
 def RandomStrNum(len = 6):
     Random_string = ""
@@ -22,17 +22,29 @@ def index():
 @app.route("/Data" , methods = ['POST' , 'GET'])
 def get_data():
     if request.method == "POST":
+        Short_url = ""
         url = request.form.get("longUrl")
         # print(url , RandomStrNum())
         alias = request.form.get("alias")
         # RandomStrNums = RandomStrNum()
-        if alias:
-            #url_mapping[alias] = url
-            Short_url =  f"{request.host}/{alias}" 
-            #dbHelper.dataBase.DBConnect(long_url=url , alias=alias)#.DBConnect()
-            dbObj = dbHelper.dataBase()
-            dbObj.DBConnect(long_url = url , aliass = alias)
-            print(Short_url)
+        ##chek in DataBase
+        dbObj = dbHelper.dataBase()
+        DataFIndTrue = dbObj.FindData(aliass = alias)
+
+        if  DataFIndTrue:
+                print("Data Availabel")
+
+                return render_template('index.html' , DataFIndTrue = DataFIndTrue)
+
+        elif alias:
+                #url_mapping[alias] = url
+                
+                Short_url =  f"{request.host}/{alias}" 
+                #dbHelper.dataBase.DBConnect(long_url=url , alias=alias)#.DBConnect()
+                dbObj = dbHelper.dataBase()
+                dbObj.DBConnect(long_url = url , aliass = alias)
+                print(Short_url)
+                #Short_url = Short_url
         else:
             #print(url , RandomStrNum())
             # random_nu = RandomStrNum()
@@ -40,12 +52,11 @@ def get_data():
             # Short_url =  f"{request.host}/{random_nu}"
             pass
 
-        # ##Call the Class
+        #Call the Class
         
-        # Short_url = Short_url
         #print(f"Short url -->  {request.host}/{alias}")
     
-    return render_template('index.html'   , Short_url = Short_url)
+    return render_template('index.html', Short_url = Short_url)
 
 
 @app.route("/<Short_url>" ,  methods = ['POST' , 'GET'])
