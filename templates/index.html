@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <title>URL Shortener</title>
     <style>
         body {
@@ -66,7 +67,7 @@
             <input type="url" id="longUrl" name="longUrl" required placeholder="https://example.com"  value="{{ request.form.get('longUrl', '') }}">
             
             <label for="alias">Enter Custom Alias (Optional):</label>
-            <input type="text" id="alias" name="alias" placeholder="custom-alias" value="{{ request.form.get('alias', '')}}">
+            <input type="text" id="alias" name="alias" placeholder="custom-alias" value="{{ request.form.get('alias', '')}}" minlength="6" >
             
             <button type="submit">Shorten URL</button>
    

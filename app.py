@@ -27,14 +27,18 @@ def get_data():
         alias = request.form.get("alias")
         # RandomStrNums = RandomStrNum()
         if alias:
-            url_mapping[alias] = url
+            #url_mapping[alias] = url
             Short_url =  f"{request.host}/{alias}" 
-            dbHelper.dataBase(long_url=url , alias=alias)#.DBConnect()
+            #dbHelper.dataBase.DBConnect(long_url=url , alias=alias)#.DBConnect()
+            dbObj = dbHelper.dataBase()
+            dbObj.DBConnect(long_url = url , aliass = alias)
+            print(Short_url)
         else:
             #print(url , RandomStrNum())
-            random_nu = RandomStrNum()
-            url_mapping[random_nu] = url
-            Short_url =  f"{request.host}/{random_nu}"
+            # random_nu = RandomStrNum()
+            # url_mapping[random_nu] = url
+            # Short_url =  f"{request.host}/{random_nu}"
+            pass
 
         # ##Call the Class
         
@@ -44,18 +48,29 @@ def get_data():
     return render_template('index.html'   , Short_url = Short_url)
 
 
-@app.route("/<Short_url>")
+@app.route("/<Short_url>" ,  methods = ['POST' , 'GET'])
 def redirectTooriginal(Short_url):
-    # print("D")
-    try:
-        or_u = url_mapping.get(Short_url)
+    # try:
+    #or_u = url_mapping.get(Short_url)
+    #print(or_u)
+    if Short_url == "favicon.ico":
+        print("Favicon Wala hu")
+        return "error - 404"
+    else:
+        print("Startig Function" , Short_url)
+        dbObj = dbHelper.dataBase()
+        #print(dbObj)
+        or_u = dbObj.FindData(aliass = Short_url)
         #print(or_u)
         if or_u:
             return redirect(or_u)
-    except Exception as e:
-        print(e)
-    
-    return render_template('index.html' )#, Short_url = Short_url)
+        else :
+            pass
+
+    # except Exception as e:
+    #     print(e)
+        
+    return "hello" # Short_url = Short_url)
 
 
 if __name__ == "__main__":
