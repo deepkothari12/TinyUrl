@@ -32,7 +32,7 @@ def get_data():
         DataFIndTrue = dbObj.FindData(aliass = alias)
 
         if  DataFIndTrue:
-                print("Data Availabel")
+                #print("Data Availabel")
 
                 return render_template('index.html' , DataFIndTrue = DataFIndTrue)
 
@@ -45,12 +45,20 @@ def get_data():
                 dbObj.DBConnect(long_url = url , aliass = alias)
                 print(Short_url)
                 #Short_url = Short_url
+
+                ## DONEEEEEEEEEEEEEEEEEEEEEEEEEE
         else:
             #print(url , RandomStrNum())
-            # random_nu = RandomStrNum()
+                random_nu = RandomStrNum()
             # url_mapping[random_nu] = url
             # Short_url =  f"{request.host}/{random_nu}"
-            pass
+                Short_url =  f"{request.host}/{random_nu}" 
+                #dbHelper.dataBase.DBConnect(long_url=url , alias=alias)#.DBConnect()
+                dbObj = dbHelper.dataBase()
+                dbObj.DBConnect(long_url = url , aliass = random_nu)
+                print(Short_url)
+                #Short_url = Sho
+            
 
         #Call the Class
         
@@ -59,11 +67,13 @@ def get_data():
     return render_template('index.html', Short_url = Short_url)
 
 
+
 @app.route("/<Short_url>" ,  methods = ['POST' , 'GET'])
 def redirectTooriginal(Short_url):
     # try:
     #or_u = url_mapping.get(Short_url)
     #print(or_u)
+    print(Short_url)
     if Short_url == "favicon.ico":
         print("Favicon Wala hu")
         return "error - 404"

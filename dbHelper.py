@@ -20,14 +20,15 @@ class dataBase:
         try :
             #print(aliass)
             self.cursor.execute(''' 
+                                
                                     CREATE TABLE IF NOT EXISTS tinyurl (
                                     id INT AUTO_INCREMENT,
                                     long_url TEXT,
                                     aliass VARCHAR(255),
                                     PRIMARY KEY (id),
                                     UNIQUE(aliass)
-                                    
                                     );
+                                
                                 ''')
             #print(aliass)
             self.conn.commit()
