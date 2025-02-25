@@ -1,13 +1,22 @@
 import mysql.connector as con
-
+import os
 
 class dataBase:
+
+        
+
+
     def __init__(self) -> None:# , long_url , alias) -> None:
+        # Get database URL from Render environment variable
+        DB_HOST = os.getenv("DB_HOST", "${{RAILWAY_PRIVATE_DOMAIN}}")
+        DB_USER = os.getenv("DB_USER", "root")
+        DB_PASSWORD = os.getenv("DB_PASSWORD", "${{MYSQL_ROOT_PASSWORD}}")
+        DB_NAME = os.getenv("DB_NAME", "railway")
         self.conn = con.connect(
-            host =     "localhost",
-            user =     'root',
-            password = "2003",
-            database = 'tiny'
+            host =     DB_HOST, #"localhost",
+            user =     DB_USER , #'root',
+            password = DB_PASSWORD, #"2003",
+            database = DB_NAME #'tiny'
         )
        # print("Cooneeectionnn Doneeee")
         self.cursor = self.conn.cursor() #we have to make on cursor
