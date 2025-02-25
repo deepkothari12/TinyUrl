@@ -1,17 +1,17 @@
 import mysql.connector as con
+from dotenv import load_dotenv
 import os
 
+load_dotenv('secrets.env')
+
 class dataBase:
-
-        
-
-
+    
     def __init__(self) -> None:# , long_url , alias) -> None:
         # Get database URL from Render environment variable
-        DB_HOST = os.getenv("DB_HOST", "${{RAILWAY_PRIVATE_DOMAIN}}")
-        DB_USER = os.getenv("DB_USER", "root")
-        DB_PASSWORD = os.getenv("DB_PASSWORD", "${{MYSQL_ROOT_PASSWORD}}")
-        DB_NAME = os.getenv("DB_NAME", "railway")
+        DB_HOST = os.getenv("DB_HOST")
+        DB_USER = os.getenv("DB_USER")
+        DB_PASSWORD = os.getenv("DB_PASSWORD")
+        DB_NAME = os.getenv("DB_NAME")
         self.conn = con.connect(
             host =     DB_HOST, #"localhost",
             user =     DB_USER , #'root',
